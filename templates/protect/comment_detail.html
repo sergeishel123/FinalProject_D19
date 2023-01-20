@@ -1,0 +1,57 @@
+{% include 'flatpages/default.html' %}
+{% block title %}
+<h5>Комментарий к пользователю {{user.username}}</h5>
+{% endblock title %}
+<style>
+    body {background-color: powderblue}
+</style>
+<center>
+{% block content %}
+<table>
+            <tr>
+                <td>
+                    Текст комментария |
+                </td>
+                <td>
+                    Автор комментария |
+                </td>
+                <td>
+                    Время добавления |
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{comment.text|truncatewords:10}}
+                </td>
+                <td>
+                    {{comment.user.username}}
+                </td>
+                <td>
+                    {{comment.time_in}}
+                </td>
+            </tr>
+</table>
+
+</center>
+{% if is_not_like %}
+    <h5>
+        Оцените комментарий!<p></p>
+        <button><a href = '{{comment.get_absolute_url}}/like'>Лайкнете его!</a></button>
+    </h5>
+
+{% else %}
+<h5 style = color:blue>
+    Вы оценили комментарий лайком!
+</h5>
+
+{% endif %}
+
+<h5 style = color:green>
+    Не понравился комментарий? Можете удалить!<p></p>
+    <button><a href = '{{comment.get_absolute_url}}/delete'>Удалить</a></button>
+</h5>
+
+<center>
+    <a href = '{% url "personal" %}'><h5 style = color:black>В личный кабинет</h5></a>
+</center>
+{% endblock content %}

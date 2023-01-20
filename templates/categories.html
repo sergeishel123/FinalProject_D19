@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load cache %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {background-color: powderblue }
+</style>
+<body>
+{% cache 60 number %}
+<h4>
+    Доступные категории
+</h4>
+{% block content %}
+{% for category in categories %}
+<p> {{category.name}} </p>
+{% endfor %}
+{% endblock content %}
+{% endcache %}
+</body>
+</html>

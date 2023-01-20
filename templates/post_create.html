@@ -1,0 +1,19 @@
+{% include 'flatpages/default.html' %}
+
+<style>
+    body {background-color: powderblue;}
+</style>
+
+{% block content %}
+<center></center>
+<h1>Создание/редактирование поста</h1>
+<hr>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a href = "{% url 'all_categories' %}">Посмотреть список доступных категорий</a>
+    <p></p>
+    <button type = 'submit'>Загрузить</button>
+</form>
+<p></p>
+{% endblock content %}

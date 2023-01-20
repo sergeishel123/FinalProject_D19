@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% include 'flatpages/default.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Выход из системы</title>
+</head>
+<body>
+<center>
+    <h4>
+        <button>Вы вышли из системы</button>
+    </h4>
+    <a href = '{% url "protect_view" %}'>К стартовой странице</a>
+</center>
+</body>
+</html>

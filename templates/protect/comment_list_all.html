@@ -1,0 +1,56 @@
+{% include 'flatpages/default.html' %}
+{% block title %}
+{% endblock title %}
+<style>
+    body {background-color: powderblue}
+</style>
+{% block content %}
+<p></p>
+<p></p>
+<center>
+    <p></p>
+    <h4 style = color:blue>
+        Все Отклики на ваши объявления
+    </h4>
+    <h6 style = color:darkcyan>
+        Отфильровать комментарии по содержанию:
+    </h6>
+    <form action = '' method = 'get'>
+        {{filterset.form.as_p}}
+        <input type = 'submit' value = 'Найти'>
+    </form>
+    <table>
+            <tr>
+                <td>
+                    Текст комментария |
+                </td>
+                <td>
+                    Автор комментария |
+                </td>
+                <td>
+                    Время добавления |
+                </td>
+                <td>
+                    Возможные действия
+                </td>
+            </tr>
+        {% for comment in comments%}
+            <tr>
+                <td>
+                    {{comment.text|truncatewords:10}}
+                </td>
+                <td>
+                    {{comment.user.username}}
+                </td>
+                <td>
+                    {{comment.time_in}}
+                </td>
+                <td>
+                    <button><a href = '{{comment.get_absolute_url}}'>Читать Подробнее...</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% endblock content %}

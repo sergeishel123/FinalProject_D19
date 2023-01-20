@@ -1,0 +1,56 @@
+{% include 'flatpages/default.html' %}
+{% block title %}
+
+{% endblock title %}
+<style>
+    body {background-color: powderblue}
+</style>
+{% block content %}
+<p></p>
+<button><a href = '{% url "logout" %}'>Выйти из системы</a></button>
+<p></p>
+<a href = "{% url 'post_lists' %}" style = color:black>Ко всем новостям</a>
+<center>
+    <h3>
+        Страница авторизованного пользователя <i>{{user.username}}</i>
+    </h3>
+    <p></p>
+    <h4 style = color:blue>
+        Свежие Отклики на ваши объявления:
+    </h4>
+    <table>
+            <tr>
+                <td>
+                    Текст комментария |
+                </td>
+                <td>
+                    Автор комментария |
+                </td>
+                <td>
+                    Время добавления |
+                </td>
+                <td>
+                    Возможные действия
+                </td>
+            </tr>
+        {% for comment in comments%}
+            <tr>
+                <td>
+                    {{comment.text|truncatewords:10}}
+                </td>
+                <td>
+                    {{comment.user.username}}
+                </td>
+                <td>
+                    {{comment.time_in}}
+                </td>
+                <td>
+                    <button><a href = '{{comment.get_absolute_url}}'>Читать Подробнее...</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href = '{% url "all_comments" %}'><ul>Все отклики</ul></a>
+</center>
+
+{% endblock content %}

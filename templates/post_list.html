@@ -1,0 +1,96 @@
+{% include 'flatpages/default.html' %}
+{% load custom_tags %}
+{% load custom_filters %}
+{% load cache %}
+
+<style>
+    body {background-color: powderblue;}
+</style>
+{% cache 60 * 30 title %}
+    {% block title %}
+    <h3>
+    <center>НОВОСТИ</center>
+    </h3>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    {% endblock title %}
+{% endcache %}
+
+
+{% block content %}
+<center>
+{% cache 60 * 100 %}
+    <hr>
+    <h4>
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Текст
+                </td>
+            </tr>{% endcache %}
+                {% for post in posts %}
+                <tr class = '{% cycle "blue" "white" %}'><td>
+                    {{post.heading|censor}}
+                </td>
+                <td>
+                    {{post.time_in|date:'d M Y'}}
+                </td>
+                <td>
+                    {{post.text|censor|truncatewords:10}}
+                </td>
+                    <td>
+                        <a href = "{{post.get_absolute_url}}" style = "color:lilac">Читать больше</a>
+                    </td>
+                </tr>
+                {% empty %}
+                    Новостей нет!
+                {% endfor %}
+        </table>
+    </h4>
+</center>
+<center>
+    {% if page_obj.has_previous %}
+       {# Для каждой ссылки пагинации указываем обработку через новый тег #}
+       <a href="?{% url_replace page=1 %}"><button>First</button></a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+    <a href="?{% url_replace page=page_obj.previous_page_number %}"><button>{{ page_obj.previous_page_number }}</button></a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+    <a href="?{% url_replace page=page_obj.next_page_number %}"><button>{{ page_obj.next_page_number }}</button></a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}"><button>Last</button></a>
+       {% endif %}
+   {% endif %}
+</center>
+
+Пользователь <i><h4>{{user.username}}</h4></i>
+
+{% if is_not_author %}
+<p>
+    <button><a href = 'be/'>Стать автором</a></button>
+</p>
+{% else %}
+<a href = '{% url "personal" %}'>В личный кабинет</a>
+<center>
+<p>
+    <button><a href = "{% url 'post_create' %}">Добавить новость</a></button>
+</p>
+
+</center>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% include 'flatpages/default.html' %}
+<style>
+    body {background-color: powderblue;}
+</style>
+<center>
+    <h2>{{post.heading}}</h2>
+    <hr>
+</center>
+
+    <h3>{{post.text}}</h3>
+
+    Дата публикации: <h4>{{post.time_in}}</h4>
+    Категория: <h4>{{categor.name}}</h4>
+    Файл
+{% if post.cover %}
+<h2>
+        <img src = "{{post.cover.url}}" alt = "{{post.heading}}" width="300" height="200">
+</h2>
+{% else %}
+<h5 style = color:darkred>
+    У поста нет файла или его не удалось загрузить
+</h5>
+{% endif %}
+
+
+<center>
+    <button>Добавить комментарий на статью</button>
+    <p><p></p></p>
+<form action = '' method = 'post'>
+    {% csrf_token%}
+    <label for = 'comment_text'>Текст комментария</label>
+    <input type = 'text' name = 'comment_text'>
+    <p></p>
+    <input type = 'submit' value = 'Отправить'>
+</form>
+</center>
+

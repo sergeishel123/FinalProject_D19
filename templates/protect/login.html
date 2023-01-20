@@ -1,0 +1,28 @@
+{% include 'flatpages/default.html' %}
+
+<style>
+    body { background-color : powderblue }
+</style>
+{% block content %}
+<center>
+    <h2>
+        Страница авторизации
+    </h2>
+</center>
+
+<h4>Введите свои данные для входа</h4>
+
+<form action = '' method = 'POST'>
+    {% csrf_token %}
+    <label for = 'email'>email</label>
+    <input type = 'email' name = 'email'>
+    <p></p>
+    <label for = password>password</label>
+    <input type = 'text' name = 'password'>
+    <p></p>
+    <input type = 'submit' value = 'Send'>
+</form>
+{% if error %}
+<h6>Электронная почта или пароль неверны!</h6>
+{% endif %}
+{% endblock content %}

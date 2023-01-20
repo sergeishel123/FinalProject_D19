@@ -1,0 +1,17 @@
+{% include 'flatpages/default.html' %}
+
+<style>
+    body {background-color: powderblue;}
+</style>
+
+{% block content %}
+<center></center>
+<h1>Редактирование поста</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить" />
+</form>
+
+{% endblock content %}
